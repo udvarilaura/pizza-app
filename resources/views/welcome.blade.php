@@ -37,6 +37,32 @@
             @endif
 
             <div class="ml-4 text-center text-sm text-gray-500 sm:text-left">
+                <br>
+                @php
+                    use Goutte\Client;
+
+                    $client = new Client();
+                    $crawler = $client->request('GET', 'https://akropolisz-gyros.hu/nyertesek/');
+                    
+                    $winners_a = $crawler->filter('div > span')->each(function ($node)
+                    {
+                        return $node->text();
+                    });
+
+                    print "Akropolisz nyertes:" . " " . $winners_a[0];
+                @endphp
+                <br>
+                @php
+                    $crawler = $client->request('GET', 'https://corleoneristorante.hu/nyertesek/');
+
+                    $winners_c = $crawler->filter('div > span')->each(function ($node)
+                    {
+                        return $node->text();
+                    });
+
+                    print "Corleone nyertes:" . " " . $winners_c[1];
+                @endphp
+                <br>
                 pizza-app &copy; 2021
             </div>
             </div>
